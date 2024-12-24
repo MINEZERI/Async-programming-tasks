@@ -11,3 +11,16 @@ function map(arr, callback) {
 
   return Promise.all(promises);
 }
+
+const numbers = [1, 2, 3];
+map(numbers, (num, callback) => {
+  setTimeout(() => {
+    callback(null, num * 2);
+  }, 500);
+})
+  .then((results) => {
+    console.log("Results:", results); // results: 2, 4, 6
+  })
+  .catch((err) => {
+    console.error("Error:", err);
+  });
