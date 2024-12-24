@@ -1,4 +1,4 @@
-function map(arr, callback, finalCallback) {
+function map(arr, callback, finalCallback, debounceTime = 0) {
   const results = [];
   let completed = 0;
 
@@ -12,7 +12,7 @@ function map(arr, callback, finalCallback) {
       completed++;
 
       if (completed === arr.length) {
-        finalCallback(null, results);
+        setTimeout(() => finalCallback(null, results), debounceTime);
       }
     });
   });
@@ -33,4 +33,5 @@ map(
       console.log("Results:", results); // results: 2, 4, 6
     }
   },
+  1000,
 );
