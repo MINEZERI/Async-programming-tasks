@@ -24,4 +24,4 @@ emitter.on("end", () => {
   console.log("Processing completed.");
 });
 
-emitter.emitData([1, 2, 3, 4, 5]);
+emitter.emitData([1, 2, 3, 4, 5, 6, 7]);
