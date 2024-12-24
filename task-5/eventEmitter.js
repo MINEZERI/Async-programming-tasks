@@ -9,7 +9,19 @@ class DataEmitter extends EventEmitter {
         if (index === arr.length - 1) {
           this.emit("end");
         }
-      }, 1000);
+      }, Math.random() * 1000);
     });
   }
 }
+
+const emitter = new DataEmitter();
+
+emitter.on("data", (data) => {
+  console.log("Received data:", data);
+});
+
+emitter.on("end", () => {
+  console.log("Processing completed.");
+});
+
+emitter.emitData([1, 2, 3, 4, 5]);
