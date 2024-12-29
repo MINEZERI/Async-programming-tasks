@@ -6,7 +6,7 @@ function map(arr, callback, finalCallback, debounceTime = 0) {
     callback(el, (err, result) => {
       if (err) {
         finalCallback(err);
-        return;
+        throw err;
       }
       results[index] = result;
       completed++;
