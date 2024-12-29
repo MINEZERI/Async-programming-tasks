@@ -14,7 +14,7 @@ function map(arr, callback, finalCallback, abortSignal) {
     callback(el, (err, result) => {
       if (err) {
         finalCallback(err);
-        return;
+        throw err;
       }
       results[index] = result;
       completed++;
