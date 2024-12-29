@@ -1,4 +1,3 @@
-// File: task-3/abort-controller.js
 function map(arr, callback, finalCallback, abortSignal) {
   const results = [];
   let completed = 0;

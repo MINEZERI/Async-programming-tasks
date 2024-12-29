@@ -13,15 +13,14 @@ function map(arr, callback, concurrency = Infinity) {
       while (running < concurrency && index < arr.length) {
         const currentIndex = index++;
         running++;
-        callback(arr[currentIndex], (err, result) => {
-          running--;
-          if (err) {
-            reject(err);
-            return;
-          }
-          results[currentIndex] = result;
-          next();
-        });
+
+        callback(arr[currentIndex])
+          .then((result) => {
+            results[currentIndex] = result;
+            running--;
+            next();
+          })
+          .catch(reject);
       }
     }
 
@@ -32,15 +31,17 @@ function map(arr, callback, concurrency = Infinity) {
 const numbers = [1, 2, 3];
 map(
   numbers,
-  (num, callback) => {
-    setTimeout(() => {
-      callback(null, num * 2);
-    }, 1000);
+  (num) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(num * 2);
+      }, 1000);
+    });
   },
   2,
 )
   .then((results) => {
-    console.log("Results:", results); // results: 2, 4, 6
+    console.log("Results:", results);
   })
   .catch((err) => {
     console.error("Error:", err);
